@@ -11,7 +11,18 @@ def load_data(url : str):
     except:
         print("Error loading the file :c")
 
-def pinguin_mesures_graph(df):
+def pinguin_gender_pie(df: pd.DataFrame):
+    df_sex_clean = df[df["sex"].isin(["MALE", "FEMALE"])]
+    male_count = len(df_sex_clean[df["sex"] == "MALE"])
+    female_count = len(df_sex_clean[df["sex"] == "FEMALE"])
+    aux_dict = {"gender":df_sex_clean["sex"].unique(),"count":[male_count,female_count]}
+    df_gender = pd.DataFrame(aux_dict)
+    fig = px.pie(df_gender, values= "count", names="gender", title="Pinguin sex ratio", hole=.5)
+    return fig
+
+
+
+def pinguin_mesures_graph(df: pd.DataFrame):
     pinguins_types = df["species"].unique()
     culmen_l_means = [] 
     culmen_d_means = []
@@ -35,7 +46,7 @@ def pinguin_mesures_graph(df):
     
     return fig
 
-def pie_chart(df):
+def pie_chart(df: pd.DataFrame):
     pinguins_types = df["species"].unique()
     number = []
     for pinguin in pinguins_types:
@@ -88,10 +99,11 @@ with colum_4:
     st.metric(f"No. of {pinguins_types[2]}", len(df[df["species"] == pinguins_types[2]]), border=True)
 with colum_5:
     hist_mesures = pinguin_mesures_graph(df)
-    st.plotly_chart(hist_mesures)
+    st.plotly_chart(hist_mesures,theme="streamlit")
+    pie_sex_chart = pinguin_gender_pie(df)
+    st.plotly_chart(pie_sex_chart, theme="streamlit")
 with colum_6:
     pie_numbers = pie_chart(df)
     st.plotly_chart(pie_numbers)
-
 
 
