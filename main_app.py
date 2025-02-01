@@ -106,4 +106,4 @@ with colum_6:
     pie_numbers = pie_chart(df)
     st.plotly_chart(pie_numbers)
 
-
+st.write("Que chingue a su madre el america")
