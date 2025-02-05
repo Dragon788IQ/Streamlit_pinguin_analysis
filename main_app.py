@@ -66,7 +66,7 @@ def pie_chart(df: pd.DataFrame):
     return fig
 
 df = load_data("Resource/penguins_size.csv")
-
+st.set_page_config(page_title="Pinguin size analysis", page_icon="🐧", layout="wide")
 st.title("Pinguin size analysis 🐧")
 
 with st.sidebar:
@@ -106,4 +106,3 @@ with colum_6:
     pie_numbers = pie_chart(df)
     st.plotly_chart(pie_numbers)
 
-st.write("Que chingue a su madre el america")
